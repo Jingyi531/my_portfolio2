@@ -1,4 +1,12 @@
 [build]
-  base = "/"
-  publish = "frontend/build"
-  functions = "backend/functions"
+  base = "frontend"       # Directory containing package.json
+  publish = "frontend/dist"  # Output directory for the build
+  command = "npm run build"  # Build command
+
+[build.environment]
+  NODE_VERSION = "18"    # Specify the Node.js version
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
