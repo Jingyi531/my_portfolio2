@@ -1,6 +1,6 @@
 [build]
   base = "frontend"       # Directory containing package.json
-  publish = "frontend/public"  # Output directory for the build
+  publish = "frontend/dist"  # Output directory for the build
   command = "npm run build"  # Build command
 
 [build.environment]
