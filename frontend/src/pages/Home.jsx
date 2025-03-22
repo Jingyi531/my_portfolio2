@@ -5,9 +5,10 @@ const Home = () => {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  
   useEffect(() => {
-    fetch("http://localhost:9000/.netlify/functions/api/weather")
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+    fetch(`${apiBaseUrl}/weather`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

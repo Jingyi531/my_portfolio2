@@ -6,7 +6,8 @@ const Projects = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:9000/.netlify/functions/api/projects")
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+    fetch(`${apiBaseUrl}/projects`)
       .then((response) => response.json())
       .then((data) => {
         setProjects(data);
