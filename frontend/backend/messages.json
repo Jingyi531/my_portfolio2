@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "subject": "Website Feedback",
+    "message": "I really like your portfolio design!",
+    "date": "2024-03-25T14:30:00.000Z",
+    "read": false
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "subject": "Job Opportunity",
+    "message": "We'd like to discuss a potential frontend developer position.",
+    "date": "2024-03-26T09:15:00.000Z",
+    "read": false
+  },
+  {
+    "date": "2025-04-04T17:33:45.663Z"
+  },
+  {
+    "id": 1743792519362,
+    "name": "Jingyi Yang",
+    "email": "jn839741@dal.ca",
+    "subject": "f",
+    "message": "fffffffffffffff",
+    "date": "2025-04-04T18:48:39.362Z",
+    "read": false
+  },
+  {
+    "id": 1743808953698,
+    "name": "ffd",
+    "email": "jn839741@dal.ca",
+    "subject": "fk",
+    "message": "fffff",
+    "date": "2025-04-04T23:22:33.698Z",
+    "read": false
+  },
+  {
+    "id": 1743808971240,
+    "name": "Jingyi Yang",
+    "email": "jn839741@dal.ca",
+    "subject": "fjisdfjoidsf",
+    "message": "fjisdfjoidsf",
+    "date": "2025-04-04T23:22:51.240Z",
+    "read": false
+  }
+]

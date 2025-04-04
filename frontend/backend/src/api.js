@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const fs = require("fs");
 
+
 // Correctly import node-fetch
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
@@ -13,21 +14,55 @@ dotenv.config();
 
 const app = express();
 const router = express.Router();
+app.use(cors({ origin: "*" })); // Allow all origins for CORS
 
-app.use(cors());
+app.use(express.json()); // For JSON requests
+app.use(express.urlencoded({ extended: true })); // For form submissions
+
 
 // Load projects from projects.json
 
-
+let projects = [];
+let messages = [];
+const projectsPath = path.resolve("projects.json");
 try {
-  const projectsPath = path.join(__dirname, "projects.json");
-  const fullPath = path.resolve("projects.json");
-  projects = JSON.parse(fs.readFileSync(fullPath, "utf-8"));
+
+  
+  projects = JSON.parse(fs.readFileSync(projectsPath, "utf-8"));
   console.log("Projects loaded successfully:", projects);
 } catch (err) {
   console.error("Error loading projects.json:", err);
   projects = []; // Fallback to an empty array
 }
+
+const messagesPath = path.resolve("messages.json");
+
+// Helper functions
+const readMessages = () => {
+  try {
+    return JSON.parse(fs.readFileSync(messagesPath , 'utf8'));
+  } catch (err) {
+    return [];
+  }
+};
+
+const saveMessages = (messages) => {
+  fs.writeFileSync(messagesPath,  JSON.stringify(messages, null, 2));
+};
+
+// Validate and sanitize input
+const processInput = (input) => {
+  return {
+    name: input.name ? input.name.toString().trim().replace(/[<>]/g, '') : '',
+    email: input.email ? input.email.toString().trim().replace(/[<>]/g, '') : '',
+    subject: input.subject ? input.subject.toString().trim().replace(/[<>]/g, '') : '',
+    message: input.message ? input.message.toString().replace(/</g, '&lt;').replace(/>/g, '&gt;') : '',
+    consent: !!input.consent
+  };
+};
+
+
+
 // Projects route
 router.get("/projects", (req, res) => {
   try {
@@ -36,6 +71,36 @@ router.get("/projects", (req, res) => {
   } catch (err) {
     console.error("Error fetching projects:", err);
     res.status(500).json({ error: "Cannot open file", details: err.message });
+  }
+});
+
+// Projects route
+router.get("/messages", (req, res) => {
+  messages = readMessages();
+  console.log("Fetching messages...");
+  try {
+    res.json(messages.map(msg => ({
+      name: msg.name,
+      subject: msg.subject,
+      message: msg.message,
+      date: msg.date
+    })));
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+    res.status(500).json({ error: 'Failed to fetch messages' });
+  }
+});
+// PATCH message read status
+router.patch('/messages/:id', (req, res) => {
+  try {
+    const messages = JSON.parse(fs.readFileSync('messages.json'));
+    const updated = messages.map(msg => 
+      msg.id === req.params.id ? { ...msg, read: !msg.read } : msg
+    );
+    fs.writeFileSync('messages.json', JSON.stringify(updated));
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -69,6 +134,45 @@ router.get("/weather", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error", details: err.message });
   }
 });
+
+
+
+router.post('/contact', (req, res) => {
+  try {
+    console.log('Raw request body:', req.body);
+    
+    if (!req.body) {
+      return res.status(400).json({ error: "Request body is missing" });
+    }
+
+    const { name, email, subject, message, consent } = processInput(req.body);
+
+    // Validate required fields
+    if (!name || !email || !message) {
+      return res.status(400).json({ error: "Name, email, and message are required" });
+    }
+
+    // Save the message
+    const messages = readMessages();
+    messages.push({
+      id: Date.now(),
+      name,
+      email,
+      subject,
+      message,
+      date: new Date().toISOString(),
+      read: false
+    });
+    saveMessages(messages);
+
+    res.status(201).json({ success: true });
+  } catch (error) {
+    console.error('Error saving message:', error);
+    res.status(500).json({ error: 'Failed to save message' });
+  }
+});
+
+
 
 // Home route
 router.get("/", (req, res) => {

@@ -6,7 +6,8 @@ import Projects from "./pages/Projects";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
+import MessagesPage from "./pages/MessagePage";
+import ContactForm from "./pages/ContactForm";
 
 function App() {
 
@@ -20,6 +21,8 @@ function App() {
         <Route path="/" element={<Home  />} />
         <Route path="/about" element={<About/>} />
         <Route path="/projects" element={<Projects  />} />
+        <Route path="/messages" element={<MessagesPage />} />
+        <Route path="/contact" element={<ContactForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

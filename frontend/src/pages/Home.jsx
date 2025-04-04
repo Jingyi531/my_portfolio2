@@ -5,28 +5,28 @@ const Home = () => {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  useEffect(() => {
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-    fetch(`${apiBaseUrl}/weather`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setWeather(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
 
-  if (loading) return <p>Loading weather...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  // useEffect(() => {
+  //   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+  //   fetch(`${apiBaseUrl}/weather`)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setWeather(data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setError(error);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+  // if (loading) return <p>Loading weather...</p>;
+  // if (error) return <p>Error: {error.message}</p>;
 
 
   return (

@@ -7,6 +7,7 @@ const Projects = () => {
 
   useEffect(() => {
     const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
     fetch(`${apiBaseUrl}/projects`)
       .then((response) => response.json())
       .then((data) => {
