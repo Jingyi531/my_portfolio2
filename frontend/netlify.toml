@@ -1,12 +1,15 @@
 [build]
-  base = "frontend"       # Directory containing package.json
-  publish = "dist"  # Output directory for the build
-  command = "npm run build"  # Build command
+  base = "frontend"
+  command = "npm run build && cd src/backend && npm install"
+  publish = "dist"                     # Vite/React output
+  functions = "src/backend"            # Where Netlify finds functions
 
-[build.environment]
-  NODE_VERSION = "18"    # Specify the Node.js version
+[dev]
+  framework = "vite"
+  targetPort = 3000
+  autoLaunch = false
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
   status = 200
