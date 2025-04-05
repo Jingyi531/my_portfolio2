@@ -8,3 +8,5 @@
 [functions]
   directory = "backend/functions"  # Path to backend
   node_bundler = "esbuild"
+  included_files = ["backend/projects.json"]
+  included_files = ["backend/messages.json"]
