@@ -8,5 +8,7 @@
 [functions]
   directory = "backend/functions"  # Path to backend
   node_bundler = "esbuild"
-  included_files = ["backend/projects.json"]
-  included_files = ["backend/messages.json"]
+  included_files = [
+    "backend/projects.json",
+    "backend/messages.json"  # Include if file is in parent directory
+  ]
