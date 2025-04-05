@@ -1,6 +1,6 @@
 [build]
   base = "frontend"
-  command = "npm run build && cd src/backend && npm install"
+  command = "npm run build && cd backend && npm install"
   publish = "dist"                     # Vite/React output
   functions = "src/backend"            # Where Netlify finds functions
 
