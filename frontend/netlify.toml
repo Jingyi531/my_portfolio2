@@ -6,4 +6,4 @@
 
 
 [functions]
-  directory = "frontend/backend/functions"  # Path to backend
+  directory = "backend/functions"  # Path to backend
