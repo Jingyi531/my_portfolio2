@@ -1,15 +1,9 @@
 [build]
   base = "frontend"
-  command = "npm run build && cd backend && npm install"
-  publish = "dist"                     # Vite/React output
-  functions = "backend\functions"            # Where Netlify finds functions
+  publish = "dist"  # Frontend build folder
+  command = "npm run build"
 
-[dev]
-  framework = "vite"
-  targetPort = 3000
-  autoLaunch = false
 
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
-  status = 200
+
+[functions]
+  directory = "frontend/backend/functions"  # Path to backend
