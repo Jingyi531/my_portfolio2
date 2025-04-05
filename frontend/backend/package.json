@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "netlify-lambda serve src",
@@ -18,7 +17,8 @@
     "encoding": "^0.1.13",
     "express": "^4.21.2",
     "netlify-lambda": "^2.0.16",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.7.0",
     "serverless-http": "^3.2.0"
-  }
+  },
+  "description": ""
 }
