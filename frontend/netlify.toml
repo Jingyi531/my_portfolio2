@@ -7,3 +7,4 @@
 
 [functions]
   directory = "backend/functions"  # Path to backend
+  node_bundler = "esbuild"
